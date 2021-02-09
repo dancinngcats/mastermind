@@ -9,10 +9,21 @@ class Pattern
     @array = [peg1, peg2, peg3, peg4]
   end
 
-  def return_colors(specify)
+  def return_colors
     colors_array = []
-    specify.array.each do |element|
-      colors_array << specify.array.color
+    @array.each do |element|
+      colors_array << element.color
     end
+    colors_array
   end
+
+  def return_type
+    type_array = []
+    @array.each do |element|
+      type_array << element.type
+    end
+    type_array
+  end
+
+
 end
