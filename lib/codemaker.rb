@@ -1,7 +1,7 @@
 class Codemaker
-  attr_reader :codemaker_code
+  attr_reader :code
   def initialize
-    @codemaker_code = ["r", "b", "g", "y"].shuffle
+    @code = ["r", "b", "g", "y"]
   end
 
   # generate a random computer code

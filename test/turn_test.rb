@@ -29,17 +29,20 @@ class TurnTest < Minitest::Test
   end
 
   def test_it_can_sanitize_user_input
-    skip
-    @turn.user_input("Fdlo123")
-    @turn.sanitize
+    # skip
+    @turn.user_input("Fd lo123")
     assert_equal "fdlo", @turn.guess
 
   end
 
   def test_it_can_compare_user_input_to_code
-    skip
-    @turn.sanitize("asdf")
-    assert_equal false, @turn.compare_input
+    # skip
+    @turn.user_input("rbgy")
+    assert_equal true, @turn.correct_guess?
   end
 
+  def test_access_code_method_can_access_code
+    result = @turn.codemaker.code
+    assert_equal result, @turn.access_code
+    end
 end
