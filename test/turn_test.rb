@@ -11,24 +11,33 @@ class TurnTest < Minitest::Test
   end
 
   def test_it_can_accept_user_input
-
-    assert_instance_of String, @turn.user_input
+    assert_instance_of String, @turn.user_input("dhghg")
   end
 
-  def test_user_input_returns_four_characters
+  def test_user_input_returns_sorry_message_if_characters_longer_than_four
     # skip
-    assert_equal "Nah try again", @turn.guess_checker("flksjfldsjf")
+    @turn.user_input("asdff")
+    result = @turn.sorry_message
+    assert_equal result, @turn.guess_checker
   end
 
-  def test_user_input_doesnt_contain_numbers
-    skip
+  def test_user_input_can_only_contain_letters
+    # skip
+    @turn.user_input("ncbvnh1231")
+    result = @turn.sorry_message
+    assert_equal result, @turn.guess_checker
   end
 
   def test_it_can_sanitize_user_input
-    assert_equal "rgyb", @turn.sanitize("R GyB")
+    skip
+    @turn.user_input("Fdlo123")
+    @turn.sanitize
+    assert_equal "fdlo", @turn.guess
+
   end
 
   def test_it_can_compare_user_input_to_code
+    skip
     @turn.sanitize("asdf")
     assert_equal false, @turn.compare_input
   end
