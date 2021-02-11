@@ -8,10 +8,12 @@ class Player
     @has_lost = false
   end
 
-
-  def has_won?
-    @has_lost
-    # pattern_input.return_colors == @pattern.return_colors
-  end
+  or game over?
+  # def has_won?
+  #   @has_lost
+  #   # pattern_input.return_colors == @pattern.return_colors
+  # end
 
 end
+
+# a computer is going to generate a given pattern automatically

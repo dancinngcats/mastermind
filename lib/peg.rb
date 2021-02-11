@@ -1,10 +1,11 @@
 class Peg
 
-  attr_reader :type,
-              :color
+  attr_reader :color
 
-  def initialize(type, color)
-    @type = type
+  def initialize(color)
     @color = color
   end
 end
+
+# peg has a :code, :guess
+# change type to catogory to leave type for patterns
