@@ -14,10 +14,9 @@ class Game
   end
 
   def game_begins
-
-
     until game_end_conditions
     @turn.user_input(gets.chomp)
+
 
     @turn_number += 1
     end
