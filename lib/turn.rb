@@ -4,6 +4,7 @@ class Turn
 
   def initialize
     @codemaker = Codemaker.new
+    @messages = Message.new
     @guess = nil
   end
 
@@ -12,14 +13,18 @@ class Turn
   end
 
   def guess_checker
-    return sorry_message if @guess.length != 4
+    return sorry_message
   end
 
   def sorry_message
-    "Nah try again"
+    if @guess.length > 4
+      @message.feedback
+    elsif @guess.length < 4
+      @message.feedback
+    end
   end
 #
-  def correct_guess?
+  def has_won?
     @guess == access_code.join()
   end
 

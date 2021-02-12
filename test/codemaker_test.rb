@@ -17,10 +17,10 @@ class CodemakerTest < Minitest::Test
 
   end
 
-  def test_it_exists
-    assert_instance_of
-  end
-
-  def test_it_returns_an_array
-  end
+  # def test_it_exists
+  #   assert_instance_of
+  # end
+  #
+  # def test_it_returns_an_array
+  # end
 end
