@@ -1,10 +1,12 @@
+require './lib/codemaker'
+require './lib/message'
+
 class Turn
-  require './lib/codemaker'
   attr_reader :guess, :codemaker
 
   def initialize
     @codemaker = Codemaker.new
-    @messages = Message.new
+    @message = Message.new
     @guess = nil
   end
 
@@ -23,7 +25,9 @@ class Turn
       @message.feedback
     end
   end
-#
+ # have to make sure the user input charactrs are the ones in array
+ # include?() boolean
+
   def has_won?
     @guess == access_code.join()
   end

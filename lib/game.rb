@@ -14,19 +14,26 @@ class Game
   end
 
   def game_begins
-
-
     until game_end_conditions
-    @turn.user_input(gets.chomp)
+      @turn.user_input(gets.chomp)
+      @turn_number += 1
 
-    @turn_number += 1
+      # filter and accept only rygb
+      # check user guess to codemaker array
+      # return to user their guess with correct elements and positions
+        # 'RRGB' has 3 of the correct elements with 2 in the correct positions
+      #take another turn
     end
   end
 
+  [1,2,4,3] == [1,2,3,4]
+
+  # .each_with_index
+  # if [].include? == [].include? 
+  # compare
+
   def we_play
-
   # if
-
   end
 
   def game_end_conditions
@@ -55,6 +62,4 @@ class Game
       puts message.abracadabra
     end
   end
-
-
 end

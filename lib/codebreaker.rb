@@ -17,5 +17,4 @@ class Codebreaker
       peg.color
     end
   end
-
 end

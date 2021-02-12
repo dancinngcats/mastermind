@@ -2,8 +2,8 @@ require './lib/peg'
 require './lib/codemaker'
 require './lib/codebreaker'
 require './lib/turn'
-require './lib/game'
 require './lib/message'
+require './lib/game'
 
 # message = Message.new
 game = Game.new
