@@ -24,12 +24,8 @@ class CodebreakerTest < Minitest::Test
     assert_instance_of Pattern, @pattern
   end
 
-  def test_it_has_attributes
-    assert_equal :code, @pattern.type
-  end
-
-  def test_it_has_no_pegs
-    assert_equal [], @pattern.pegs
+  def test_it_initializes_with_no_pegs
+    assert_empty @pattern.pegs
   end
 
   def test_it_has_pegs
@@ -47,6 +43,4 @@ class CodebreakerTest < Minitest::Test
 
     assert_equal ["Red", "Yellow", "Blue", "Green"], @pattern.return_colors
   end
-
-
 end

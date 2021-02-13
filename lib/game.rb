@@ -15,17 +15,18 @@ class Game
 
   def game_begins
     until game_end_conditions
-    @turn.user_input(gets.chomp)
-
-
-    @turn_number += 1
+     
     end
   end
 
+  [1,2,4,3] == [1,2,3,4]
+
+  # .each_with_index
+  # if [].include? == [].include? 
+  # compare
+
   def we_play
-
   # if
-
   end
 
   def game_end_conditions
@@ -54,6 +55,4 @@ class Game
       puts message.abracadabra
     end
   end
-
-
 end
