@@ -17,7 +17,7 @@ def instructions
 end
 
 def lets_play
-  "Let's play a game"
+  "Let's play a round. I've generated a code. What is your guess?"
 end
 
 def abracadabra
@@ -33,16 +33,13 @@ def short_guess
 end
 
 def long_guess
-  "C'mon... Your guess does not have enough characters. Try again."
+  "C'mon... Your guess has too many characters. Try again."
 end
 
 def end_game
-  "Wonderful job! Did you have fun? We know you did. Come again."
+  "Wonderful job! Did you have fun? We know you did. Come again. In fact, would you like to (p)lay again? Or (q)uit"
 end
 
 # will have to have an ardument user_input
-def feedback
-  "'RRGB' has 3 of the correct elements with 2 in the correct positions you've taken 1 guess"
-end
 
 end
