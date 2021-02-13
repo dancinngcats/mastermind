@@ -14,14 +14,12 @@ class GameTest < Minitest::Test
   def test_start_method_stards_and_ends_game
     # skip
     result = @game.message.end_game
-    assert_equal nil, @game.start
+    assert_equal nil, @game.flow
   end
 
-  def test_it_shows_end_message
-    # skip
-    result = "Congratluations. Have a nice day"
-    assert_equal result, @game.game_end_message
-  end
-
+  def test_start_method_prints_instructions
+    answer = "i"
+    result = @game.message.instructions
+    assert_equal result, @game.start
 
 end

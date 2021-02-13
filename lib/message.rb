@@ -13,7 +13,7 @@ def quit
 end
 
 def instructions
-  "Here are the instructions: ............."
+  "Here are the instructions: .............Would you like to (p)lay or (q)uit?"
 end
 
 def lets_play
@@ -21,7 +21,7 @@ def lets_play
 end
 
 def abracadabra
-  "Naughty-naughty (you answered incorrectly) Try running the game again."
+  "Naughty-naughty (you answered incorrectly) Give it another shot."
 end
 
 def cheat
@@ -44,6 +44,5 @@ end
 def feedback
   "'RRGB' has 3 of the correct elements with 2 in the correct positions you've taken 1 guess"
 end
-
 
 end

@@ -10,4 +10,4 @@ game = Game.new
 message = Message.new
 
 puts message.introduction
-game.player_chooses_to_start_quit_or_read_instructions(answer = gets.chomp)
+game.start
