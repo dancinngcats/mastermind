@@ -9,7 +9,9 @@ class Turn
   end
 
   def user_input(user_guess)
+    if user_guess == "q" || "Q" || "quit"
     @guess = user_guess.downcase.delete('^a-z')
+    end
   end
 
   def index_and_color_guess_checker
@@ -34,10 +36,6 @@ class Turn
     end
   end
 
-
-    return sorry_message
-  end
-
   def sorry_message
     if @guess.length > 4
       @message.feedback
@@ -54,4 +52,7 @@ class Turn
     @codemaker.code
   end
 
+  def quit
+    message.quit
+  end
 end
