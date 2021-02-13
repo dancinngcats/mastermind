@@ -14,7 +14,29 @@ class Turn
     @guess = user_guess.downcase.delete('^a-z')
   end
 
-  def guess_checker
+  def index_and_color_guess_checker
+    result = []
+    4.times do |index|
+      if code[index] == guess[index]
+        result << "yes, index and color check out"
+      else
+        result << "no"
+      end
+    end
+  end
+
+  def color_guess_checker
+    results = []
+    4.times do |index|
+      if guess.include?(access_code[index])
+        results << "correct color, index not counted"
+      else
+        results << "wrong color, index not counted"
+      end
+    end
+  end
+
+
     return sorry_message
   end
 

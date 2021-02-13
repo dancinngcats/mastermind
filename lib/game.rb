@@ -15,14 +15,7 @@ class Game
 
   def game_begins
     until game_end_conditions
-      @turn.user_input(gets.chomp)
-      @turn_number += 1
-
-      # filter and accept only rygb
-      # check user guess to codemaker array
-      # return to user their guess with correct elements and positions
-        # 'RRGB' has 3 of the correct elements with 2 in the correct positions
-      #take another turn
+     
     end
   end
 
