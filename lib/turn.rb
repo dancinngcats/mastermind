@@ -2,59 +2,52 @@ require './lib/codemaker'
 require './lib/message'
 
 class Turn
-  attr_reader :guess, :codemaker, :won
+  attr_reader :guess, :codemaker
+  attr_accessor :number_correct, :won
 
   def initialize
     @codemaker = Codemaker.new
     @message = Message.new
     @guess = nil
     @won = false
+    @number_correct = 0
   end
 
-  def user_input(answer)
-    sanitized = answer.downcase.delete('^a-z')
-    @guess = sanitized.split('')
+  def player_guess(answer)
+    @guess = answer
+  end
+
+  def correct_characters?
+    if @guess.split('').sort != access_code.sort
+      @message.right_letters
+      false
+    elsif @guess.split('').sort == access_code.sort
+      true
+    end
   end
 
   def index_checker
-    result = []
     4.times do |index|
-      if access_code[index] == @guess[index]
-        result << 1
-      else
-        result << 0
-      end
+      @number_correct += 1 if access_code[index] == @guess[index]
     end
-    result.sum
   end
 
-  def color_checker
-    result = []
-    4.times do |index|
-      if guess.include?(access_code[index])
-        result << 1
-      else
-        result << 0
-      end
-    end
-    result.sum
-  end
-
-  def length_message
+  def correct_length?
     if @guess.length > 4
-      puts @message.long_guess
-      @guess = nil
+      1
     elsif @guess.length < 4
-      puts @message.short_guess
-      @guess = nil
+      -1
+    else
+      true
     end
-  end
-
-  def has_won?
-    @won = true if @guess == access_code
   end
 
   def access_code
     @codemaker.code
   end
+
+  def has_won?
+    @won = true if @number_correct == 4
+  end
+
 end
