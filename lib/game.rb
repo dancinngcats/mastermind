@@ -9,71 +9,102 @@ class Game
   end
 
   def start
-    answer = gets.chomp
-    if answer.downcase == "p"
-      flow
-    end
-    if answer.downcase == "i"
-      puts @message.instructions
-
-      until answer.downcase == "p" || answer.downcase == "q"
-      instruction_prompt = gets.chomp
-        if instruction_prompt.downcase == "p"
-          flow
-        elsif instruction_prompt.downcase == "q"
-          puts @message.quit
-          break
-        else
-          puts @message.abracadabra
-        end
-      end
-    end
+    start_loop
   end
 
   def flow
-    puts @message.lets_play
-    until end_conditions_are_met
-      @turn.user_input(gets.chomp)
-      @turn.length_message
+    reset_game_scores
+    p @message.lets_play
+
+    until @turn.has_won? || @turn_number == 100 || user_quits
+
+      @turn.player_guess(gets.chomp)
       @turn_number += 1
-        if @turn.guess != nil
-          puts feedback_message
-        end
-        puts @message.end_game
+      if user_quits
+        p @message.quit
+        break
       end
-      answer = gets.chomp
-        if answer == "p"
-          flow
-        elsif answer == "q"
-          puts @message.quit
-        else
-          puts "fuck you - just kidding."
+      edge_case_for_loops
+
+      if all_systems_go?
+        reset_turn_score
+        @turn.index_checker
+        p feedback_message
+          if @turn.has_won?
+            p @message.end_game
+            @user_input = gets.chomp
+            if @user_input == "p"
+              flow
+            elsif @user_input == "q"
+              p @message.quit
+              break
+            end
+          end
         end
       end
-  # end
+    end
 
+    def edge_case_for_loops
+      p @message.short_guess if @turn.correct_length? == -1
+      p @message.long_guess if @turn.correct_length? == 1
+      p @message.abracadabra if @turn.correct_characters? == false
+    end
 
+  def all_systems_go?
+    @turn.correct_characters? == true && @turn.correct_length? == true
+  end
 
-    # if @turn.won == true
-    #   puts @message.end_game
-    #   answer = gets.chomp
-    #   if answer == "p"
-    #     start
-    #   end
-      # until answer == "p" || answer == "q"
-      #     if answer == "p"
-      #       flow
-      #     elsif answer == "q"
-      #       puts @message.quit
-      #   end
-      # end
+  def user_quits
+    @turn.guess == "q" || @turn.guess == "Q" || @turn.guess ==  "quit"
+  end
+
+  def start_loop
+    @user_input = gets.chomp.downcase
+    # Play, quit or instructions
+    start_menu_select
+      # after instructions
+      if @user_input == "i"
+        until @user_input == "p" || @user_input == "q"
+        @user_input = gets.chomp
+          if @user_input == "p"
+            flow
+          elsif @user_input == "q"
+            puts @message.quit
+            break
+          else
+            puts @message.abracadabra
+          end
+        end
+      end
+    end
+
+  def start_menu_select
+    if @user_input == "p"
+      flow
+    elsif @user_input == "i"
+      puts @message.instructions
+    elsif @user_input == "q"
+      puts @message.quit
+    else
+      puts @message.abracadabra
+    end
+  end
 
   def feedback_message
-    "#{@turn.guess.to_s.upcase} has #{@turn.color_checker} of the correct elements with #{@turn.index_checker} in the correct positions you've taken #{@turn_number} guess"
+    "#{@turn.guess.to_s.upcase} has 4 correct colors in #{@turn.number_correct} of the correct positions. The number of guesses you've taken is #{@turn_number}."
   end
 
   def end_conditions_are_met
-    @turn_number == 100 || @turn.has_won?
+    @turn_number == 100 || @turn.won == true
   end
 
+  def reset_turn_score
+    @turn.number_correct = 0
   end
+
+  def reset_game_scores
+    @turn.won = false
+    @turn_number = 0
+    @turn.number_correct = 0
+  end
+end

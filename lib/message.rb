@@ -1,8 +1,8 @@
 class Message
-
-# def initialize
-#   # @message
-# end
+  attr_reader :codemaker
+  def intialize
+    @codemaker = Codemaker.new
+  end
 
 def introduction
   "Welcome to MASTERMIND Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
@@ -17,7 +17,7 @@ def instructions
 end
 
 def lets_play
-  "Let's play a round. I've generated a code. What is your guess?"
+  "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?"
 end
 
 def abracadabra
@@ -40,6 +40,14 @@ def end_game
   "Wonderful job! Did you have fun? We know you did. Come again. In fact, would you like to (p)lay again? Or (q)uit"
 end
 
-# will have to have an ardument user_input
+def input_format
+  shuffled_code = @codemaker.code.sort
+  "Please use the format requested. The only characters you are able to use are English letters used in the array: #{@shuffled_code}."
+end
+
+def right_letters
+  "You are not using correct characters... Not sure why. Let's try again"
+end
+
 
 end
