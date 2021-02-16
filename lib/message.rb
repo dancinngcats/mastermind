@@ -1,53 +1,35 @@
 class Message
-  attr_reader :codemaker
-  def intialize
-    @codemaker = Codemaker.new
+
+  def introduction
+    "Welcome to MASTERMIND Would you like to (p)lay, read the (i)nstructions, or (q)uit?\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
   end
 
-def introduction
-  "Welcome to MASTERMIND Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
-end
+  def quit
+    "We are sorry to see you go... Come again. Or not.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+  end
 
-def quit
-  "We are sorry to see you go... Come again. Or not."
-end
+  def instructions
+    "Mastermind - Rules of the game.\n\nThe computer picks a sequence of four colors.\n\nThe number of colors is the code length.\n\nThe objective of the game is to guess the exact positions of the colors in the computer's sequence. By default, a color can be used only once in a code sequence.\n\nAfter filling a line with your guesses, the computer responses with the result of your guess.\n\nFor each color in your guess that is in the correct color and correct position in the code sequence, the computer will return 'a correct element is in correct position'.\n\nYou win the game when you manage to guess all the colors in the code sequence and when they all in the right position.\n\nYou lose the game if you use all 100 attempts without guessing the computer code sequence.\n\nWould you like to (p)lay or (q)uit?\n"
+  end
 
-def instructions
-  "Here are the instructions: .............Would you like to (p)lay or (q)uit?"
-end
+  def lets_play
+    "I have generated a beginner sequence with four elements made up of: red, green, blue, and yellow.\n\nUse (q)uit at any time to end the game. What's your guess?\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+  end
 
-def lets_play
-  "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game. What's your guess?"
-end
+  def choose_play_or_quit
+    "You are not making any sense... Make a choice from proposed options\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+  end
 
-def abracadabra
-  "Naughty-naughty (you answered incorrectly) Give it another shot."
-end
+  def short_guess
+    "Your guess does not have enough characters... Pay attention and try again.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+  end
 
-def cheat
-  "Okay, we will help. Here is your cheat code:"
-end
+  def long_guess
+    "C'mon... Your guess has too many characters. Try again.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+  end
 
-def short_guess
-  "Your guess does not have enough characters... Pay attention and try again."
-end
-
-def long_guess
-  "C'mon... Your guess has too many characters. Try again."
-end
-
-def end_game
-  "Wonderful job! Did you have fun? We know you did. Come again. In fact, would you like to (p)lay again? Or (q)uit"
-end
-
-def input_format
-  shuffled_code = @codemaker.code.sort
-  "Please use the format requested. The only characters you are able to use are English letters used in the array: #{@shuffled_code}."
-end
-
-def right_letters
-  "You are not using correct characters... Not sure why. Let's try again"
-end
-
+  def right_letters
+    "You are not using correct characters... Use first letters from corresponding colors: (r)ed, (y)ellow, (b)lue, or (g)reen. Let's try again!\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+  end
 
 end

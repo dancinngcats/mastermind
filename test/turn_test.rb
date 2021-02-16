@@ -1,7 +1,10 @@
-require_relative 'test_helper'
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/codemaker'
+require './lib/turn'
+
 
 class TurnTest < Minitest::Test
-
   def setup
     @turn = Turn.new
   end
@@ -10,44 +13,48 @@ class TurnTest < Minitest::Test
     assert_instance_of Turn, @turn
   end
 
-  def test_it_can_accept_user_input
-    assert_instance_of String, @turn.user_input("dhghg")
+  def test_it_has_readable_attributes
+    assert_instance_of Codemaker, @turn.codemaker
+    assert_equal nil, @turn.guess
+    assert_equal false, @turn.won
+    assert_equal 0, @turn.number_correct
   end
 
-  def test_user_input_returns_sorry_message_if_characters_longer_than_four
-    # skip
-    @turn.user_input("asdff")
-    result = @turn.sorry_message
-    assert_equal result, @turn.guess_checker
+  def test_player_guess_can_store_guess
+    assert_equal nil, @turn.guess
+    @turn.player_guess("rygb")
+    assert_equal "rygb", @turn.guess
   end
 
-  def test_it_can_return_sorry_message
-    # skip
-    @turn.user_input("ncbvnh1231")
-    result = @turn.sorry_message
-    assert_equal result, @turn.guess_checker
+  def test_player_guess_returns_downcase
+    @turn.player_guess("RYGB")
+    assert_equal "rygb", @turn.guess
   end
 
-  def test_it_can_sanitize_user_input
-    # skip
-    @turn.user_input("Fd lo123")
-    assert_equal "fdlo", @turn.guess
-
+  def test_correct_characters_method
+    assert_equal nil, @turn.guess
+    @turn.player_guess("zzz")
+    assert_equal false, @turn.correct_characters?
+    @turn.player_guess("RyGB")
+    assert_equal true, @turn.correct_characters?
   end
 
-  def test_it_can_compare_user_input_to_code
-    # skip
-    @turn.user_input("rbgy")
-    assert_equal true, @turn.has_won?
+  def test_index_checker_method
+    skip
+    @turn.player_guess("rygb")
+    assert_equal 0, @turn.number_correct
   end
 
-  def test_access_code_method_can_access_code
-    result = @turn.codemaker.code
-    assert_equal result, @turn.access_code
+  def test_correct_length_method
+    @turn.player_guess("ry")
+    assert_equal -1, @turn.correct_length?
+    @turn.player_guess("rrrrrr")
+    assert_equal 1, @turn.correct_length?
+    @turn.player_guess("rygb")
+    assert_equal true, @turn.correct_length?
   end
 
-  def test_it_can_return_user_has_won
-    @turn.user_input("rbgy")
-    assert_equal true, @turn.has_won?
+  def test_access_code_method
+    assert_instance_of Array, @turn.access_code
   end
 end

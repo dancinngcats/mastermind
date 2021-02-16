@@ -7,19 +7,17 @@ class Turn
 
   def initialize
     @codemaker = Codemaker.new
-    @message = Message.new
     @guess = nil
     @won = false
     @number_correct = 0
   end
 
   def player_guess(answer)
-    @guess = answer
+    @guess = answer.downcase
   end
 
   def correct_characters?
-    if @guess.split('').sort != access_code.sort
-      @message.right_letters
+    if @guess.split('').sort != access_code.sort && @guess != cheat_keyword
       false
     elsif @guess.split('').sort == access_code.sort
       true
@@ -50,4 +48,7 @@ class Turn
     @won = true if @number_correct == 4
   end
 
+  def cheat_keyword
+    "c" || "cheat"
+  end
 end

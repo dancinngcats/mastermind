@@ -9,5 +9,5 @@ require './lib/game'
 game = Game.new
 message = Message.new
 
-puts message.introduction
+message.introduction
 game.start

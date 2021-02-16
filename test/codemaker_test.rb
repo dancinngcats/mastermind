@@ -1,26 +1,15 @@
-require_relative 'test_helper'
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/codemaker'
 
 class CodemakerTest < Minitest::Test
-
-  def setup
-    # 3 categories
-    # codemaker
-    # codebreaker
-    # feedback - not necessary when playing a computer
-
-    @pattern = Codemaker.new()
-    # delete dead code
-    @peg1 = Peg.new("Red")
-    @peg2 = Peg.new("Yellow")
-    @peg3 = Peg.new("Blue")
-    @peg4 = Peg.new("Green")
-
+  def test_it_exists
+    codemaker = Codemaker.new
+    assert_instance_of Codemaker, codemaker
   end
 
-  # def test_it_exists
-  #   assert_instance_of
-  # end
-  #
-  # def test_it_returns_an_array
-  # end
+  def test_it_has_readable_attributes
+    codemaker = Codemaker.new
+    assert_instance_of Array, codemaker.code
+  end
 end
