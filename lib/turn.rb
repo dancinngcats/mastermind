@@ -1,5 +1,4 @@
 require './lib/codemaker'
-require './lib/message'
 
 class Turn
   attr_reader :guess, :codemaker
@@ -17,9 +16,9 @@ class Turn
   end
 
   def correct_characters?
-    if @guess.split('').sort != access_code.sort && @guess != cheat_keyword
+    if @guess.match? /[^"r", "g", "b", "y"]/
       false
-    elsif @guess.split('').sort == access_code.sort
+    else
       true
     end
   end

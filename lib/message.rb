@@ -1,11 +1,15 @@
-class Message
+module Message
+
+  def slow_it_down(msg, speed)
+    msg.each_char {|c| putc c ; sleep (speed); $stdout.flush}
+  end
 
   def introduction
-    "Welcome to MASTERMIND Would you like to (p)lay, read the (i)nstructions, or (q)uit?\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+    slow_it_down("Welcome to MASTERMIND Would you like to (p)lay, read the (i)nstructions, or (q)uit?\n", 0.015)
   end
 
   def quit
-    "We are sorry to see you go... Come again. Or not.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+    slow_it_down("We are sorry to see you go... Come again. Or not.\n", 0.015)
   end
 
   def instructions
@@ -13,23 +17,41 @@ class Message
   end
 
   def lets_play
-    "I have generated a beginner sequence with four elements made up of: red, green, blue, and yellow.\n\nUse (q)uit at any time to end the game. What's your guess?\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+    slow_it_down("I have generated a beginner sequence with four elements made up of: red, green, blue, and yellow.\n\nUse (q)uit at any time to end the game. What's your guess?\n", 0.015)
   end
 
   def choose_play_or_quit
-    "You are not making any sense... Make a choice from proposed options\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+    slow_it_down("You are not making any sense... Make a choice from proposed options\n", 0.015)
   end
 
   def short_guess
-    "Your guess does not have enough characters... Pay attention and try again.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+    slow_it_down("Your guess does not have enough characters... Pay attention and try again.\n", 0.015)
   end
 
   def long_guess
-    "C'mon... Your guess has too many characters. Try again.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+    slow_it_down("C'mon... Your guess has too many characters. Try again.\n", 0.015)
   end
 
   def right_letters
-    "You are not using correct characters... Use first letters from corresponding colors: (r)ed, (y)ellow, (b)lue, or (g)reen. Let's try again!\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+    slow_it_down("You are not using correct characters... Use first letters from corresponding colors: (r)ed, (y)ellow, (b)lue, or (g)reen. Let's try again!\n", 0.015)
   end
+
+  def cheater
+    slow_it_down("*~*~*~*~* Cheater Cheater Pumpkin Eater *~*~*~*~*\n", 0.1)
+  end
+
+  def cheater_2
+    slow_it_down("The computer's code is: #{@turn.access_code}\n", 0.0)
+  end
+
+  def feedback_message
+    slow_it_down("#{@turn.guess.to_s.upcase} has 4 correct colors in #{@turn.number_correct} of the correct positions. The number of guesses you've taken is #{@turn_number}.\n", 0.015)
+  end
+
+  def end_game
+    slow_it_down("Wonderful job! You guessed the sequence #{@turn.guess.upcase} in #{@turn_number} guesses over #{interpolated_time}. Come again!\nIn fact, would you like to (p)lay again? Or (q)uit\n", 0.015)
+  end
+
+
 
 end

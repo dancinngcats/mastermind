@@ -40,9 +40,11 @@ class TurnTest < Minitest::Test
   end
 
   def test_index_checker_method
-    skip
+    # skip - passes sometimes
     @turn.player_guess("rygb")
-    assert_equal 0, @turn.number_correct
+    @turn.index_checker
+    assert_equal 2, @turn.number_correct
+
   end
 
   def test_correct_length_method

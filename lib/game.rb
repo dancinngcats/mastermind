@@ -1,27 +1,29 @@
 class Game
 
-  attr_reader :turn, :message
+  attr_reader :turn
+
+  include Message
 
   def initialize
     @turn = Turn.new
-    @message = Message.new
     @turn_number = 0
   end
 
   def start
+    introduction
     start_loop
   end
 
   def flow
     reset_game_scores
-    @message.lets_play
+    lets_play
 
     until @turn.has_won? || @turn_number == 100 || user_quits
       #establish time
       @turn.player_guess(gets.chomp)
       @turn_number += 1
       if user_quits
-        @message.quit
+        quit
         break
       end
       edge_case_for_loops
@@ -37,7 +39,7 @@ class Game
             if @user_input == "p"
               flow
             elsif @user_input == "q"
-              @message.quit
+              quit
               break
             end
           end
@@ -47,14 +49,14 @@ class Game
 
     def edge_case_for_loops
       if @turn.guess == "c" || @turn.guess == "cheat"
-        "*~*~*~*~* Cheater Cheater Pumpkin Eater *~*~*~*~*\n".each_char {|c| putc c ; sleep 0.1; $stdout.flush}
-        puts "The computer's code is: #{@turn.access_code}"
+        cheater
+        cheater_2
       elsif @turn.correct_length? == -1
-        @message.short_guess
+        short_guess
       elsif @turn.correct_length? == 1
-        @message.long_guess
+        long_guess
       elsif @turn.correct_characters? == false
-        @message.right_letters
+        right_letters
       end
     end
 
@@ -77,10 +79,10 @@ class Game
           if @user_input == "p"
             flow
           elsif @user_input == "q"
-            @message.quit
+            quit
             break
           else
-            @message.choose_play_or_quit
+            choose_play_or_quit
           end
         end
       end
@@ -90,20 +92,12 @@ class Game
     if @user_input == "p"
       flow
     elsif @user_input == "i"
-      puts @message.instructions
+      puts instructions
     elsif @user_input == "q"
-      @message.quit
+      quit
     else
-      @message.choose_play_or_quit
+      choose_play_or_quit
     end
-  end
-
-  def feedback_message
-    "#{@turn.guess.to_s.upcase} has 4 correct colors in #{@turn.number_correct} of the correct positions. The number of guesses you've taken is #{@turn_number}.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
-  end
-
-  def end_game
-    "Wonderful job! You guessed the sequence #{@turn.guess.upcase} in #{@turn_number} guesses over #{interpolated_time}. Come again! In fact, would you like to (p)lay again? Or (q)uit\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
   end
 
   def end_conditions_are_met
