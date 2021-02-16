@@ -2,7 +2,7 @@ class Game
 
   attr_reader :turn
 
-  include Message
+  include MessageModule
 
   def initialize
     @turn = Turn.new
@@ -27,38 +27,37 @@ class Game
         break
       end
       edge_case_for_loops
-
       if all_systems_go?
         reset_turn_score
         @turn.index_checker
         feedback_message
-          if @turn.has_won?
-            @time_end = Time.now
-            end_game
-            @user_input = gets.chomp
-            if @user_input == "p"
-              flow
-            elsif @user_input == "q"
-              quit
-              break
-            end
+        if @turn.has_won?
+          @time_end = Time.now
+          end_game
+          @user_input = gets.chomp
+          if @user_input == "p"
+            flow
+          elsif @user_input == "q"
+            quit
+            break
           end
         end
       end
     end
+  end
 
-    def edge_case_for_loops
-      if @turn.guess == "c" || @turn.guess == "cheat"
-        cheater
-        cheater_2
-      elsif @turn.correct_length? == -1
-        short_guess
-      elsif @turn.correct_length? == 1
-        long_guess
-      elsif @turn.correct_characters? == false
-        right_letters
-      end
+  def edge_case_for_loops
+    if @turn.guess == "c" || @turn.guess == "cheat"
+      cheater
+      cheater_2
+    elsif @turn.correct_length? == -1
+      short_guess
+    elsif @turn.correct_length? == 1
+      long_guess
+    elsif @turn.correct_characters? == false
+      right_letters
     end
+  end
 
   def all_systems_go?
     @turn.correct_characters? == true && @turn.correct_length? == true
@@ -72,21 +71,21 @@ class Game
     @user_input = gets.chomp.downcase
     # Play, quit or instructions
     start_menu_select
-      # after instructions
-      if @user_input == "i"
-        until @user_input == "p" || @user_input == "q"
+    # after instructions
+    if @user_input == "i"
+      until @user_input == "p" || @user_input == "q"
         @user_input = gets.chomp
-          if @user_input == "p"
-            flow
-          elsif @user_input == "q"
-            quit
-            break
-          else
-            choose_play_or_quit
-          end
+        if @user_input == "p"
+          flow
+        elsif @user_input == "q"
+          quit
+          break
+        else
+          choose_play_or_quit
         end
       end
     end
+  end
 
   def start_menu_select
     if @user_input == "p"
@@ -109,15 +108,14 @@ class Game
   end
 
   def time_elapsed
-    time = @time_end - @time_start
+    @time_end - @time_start
   end
 
   def interpolated_time
     seconds = time_elapsed % 60
     minutes = (time_elapsed - seconds) / 60
-    interpolated = "#{minutes.to_i} minutes and #{seconds.to_i} seconds"
+    "#{minutes.to_i} minutes and #{seconds.to_i} seconds"
   end
-
 
   def reset_game_scores
     @time_start = Time.now

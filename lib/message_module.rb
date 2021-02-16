@@ -1,11 +1,16 @@
-module Message
+module MessageModule
 
   def slow_it_down(msg, speed)
     msg.each_char {|c| putc c ; sleep (speed); $stdout.flush}
   end
 
+  def break_it_up
+    puts "-" * 100
+  end
+
   def introduction
     slow_it_down("Welcome to MASTERMIND Would you like to (p)lay, read the (i)nstructions, or (q)uit?\n", 0.015)
+    # break_it_up
   end
 
   def quit
@@ -51,7 +56,4 @@ module Message
   def end_game
     slow_it_down("Wonderful job! You guessed the sequence #{@turn.guess.upcase} in #{@turn_number} guesses over #{interpolated_time}. Come again!\nIn fact, would you like to (p)lay again? Or (q)uit\n", 0.015)
   end
-
-
-
 end
