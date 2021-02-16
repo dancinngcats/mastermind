@@ -19,7 +19,6 @@ class Game
     lets_play
 
     until @turn.has_won? || @turn_number == 100 || user_quits
-      #establish time
       @turn.player_guess(gets.chomp)
       @turn_number += 1
       if user_quits
