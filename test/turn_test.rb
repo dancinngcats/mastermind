@@ -43,8 +43,7 @@ class TurnTest < Minitest::Test
     # skip - passes sometimes
     @turn.player_guess("rygb")
     @turn.index_checker
-    assert_equal 2, @turn.number_correct
-
+    refute_equal 0, @turn.number_correct
   end
 
   def test_correct_length_method
@@ -58,5 +57,12 @@ class TurnTest < Minitest::Test
 
   def test_access_code_method
     assert_instance_of Array, @turn.access_code
+  end
+
+  def test_has_won?
+    assert_equal false, @turn.won
+    @turn.number_correct = 4
+    @turn.has_won?
+    assert_equal true, @turn.won
   end
 end

@@ -47,7 +47,4 @@ class Turn
     @won = true if @number_correct == 4
   end
 
-  def cheat_keyword
-    "c" || "cheat"
-  end
 end
