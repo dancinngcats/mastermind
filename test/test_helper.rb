@@ -7,6 +7,7 @@ end
 
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'colorize'
 require './lib/codemaker'
 require './lib/turn'
 require './lib/message_module'

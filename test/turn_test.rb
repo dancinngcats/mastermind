@@ -11,7 +11,6 @@ class TurnTest < Minitest::Test
 
   def test_it_has_readable_attributes
     assert_instance_of Codemaker, @turn.codemaker
-
     assert_nil @turn.guess
     assert_equal false, @turn.won
     assert_equal 0, @turn.number_correct
@@ -46,6 +45,7 @@ class TurnTest < Minitest::Test
   def test_index_checker_method
     @turn.player_guess("rygb")
     @turn.index_checker
+
     assert_instance_of Integer, @turn.number_correct
   end
 
@@ -69,8 +69,10 @@ class TurnTest < Minitest::Test
 
   def test_has_won?
     assert_equal false, @turn.won
+
     @turn.number_correct = 4
     @turn.has_won?
+    
     assert_equal true, @turn.won
   end
 end

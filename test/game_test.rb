@@ -1,9 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/codemaker'
-require './lib/turn'
-require './lib/message'
-require './lib/game'
+require_relative 'test_helper'
 
 class GameTest < Minitest::Test
   def setup
