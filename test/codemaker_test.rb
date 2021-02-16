@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/codemaker'
+require_relative 'test_helper'
 
 class CodemakerTest < Minitest::Test
   def test_it_exists

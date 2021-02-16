@@ -16,7 +16,7 @@ class Turn
   end
 
   def correct_characters?
-    if @guess.match? /[^"r", "g", "b", "y"]/
+    if @guess.match?(/[^"r", "g", "b", "y"]/)
       false
     else
       true
@@ -46,5 +46,4 @@ class Turn
   def has_won?
     @won = true if @number_correct == 4
   end
-
 end

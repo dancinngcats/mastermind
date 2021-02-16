@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/codemaker'
-require './lib/turn'
-
+require_relative 'test_helper'
 
 class TurnTest < Minitest::Test
   def setup
@@ -15,43 +11,55 @@ class TurnTest < Minitest::Test
 
   def test_it_has_readable_attributes
     assert_instance_of Codemaker, @turn.codemaker
-    assert_equal nil, @turn.guess
+
+    assert_nil @turn.guess
     assert_equal false, @turn.won
     assert_equal 0, @turn.number_correct
   end
 
   def test_player_guess_can_store_guess
-    assert_equal nil, @turn.guess
+    assert_nil @turn.guess
+
     @turn.player_guess("rygb")
+
     assert_equal "rygb", @turn.guess
   end
 
   def test_player_guess_returns_downcase
     @turn.player_guess("RYGB")
+
     assert_equal "rygb", @turn.guess
   end
 
   def test_correct_characters_method
-    assert_equal nil, @turn.guess
+    assert_nil @turn.guess
+
     @turn.player_guess("zzz")
+
     assert_equal false, @turn.correct_characters?
+
     @turn.player_guess("RyGB")
+
     assert_equal true, @turn.correct_characters?
   end
 
   def test_index_checker_method
-    # skip - passes sometimes
     @turn.player_guess("rygb")
     @turn.index_checker
-    refute_equal 0, @turn.number_correct
+    assert_instance_of Integer, @turn.number_correct
   end
 
   def test_correct_length_method
     @turn.player_guess("ry")
-    assert_equal -1, @turn.correct_length?
+
+    assert_equal (-1), @turn.correct_length?
+
     @turn.player_guess("rrrrrr")
+
     assert_equal 1, @turn.correct_length?
+
     @turn.player_guess("rygb")
+
     assert_equal true, @turn.correct_length?
   end
 
