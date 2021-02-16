@@ -14,14 +14,14 @@ class Game
 
   def flow
     reset_game_scores
-    p @message.lets_play
+    @message.lets_play
 
     until @turn.has_won? || @turn_number == 100 || user_quits
-
+      #establish time
       @turn.player_guess(gets.chomp)
       @turn_number += 1
       if user_quits
-        p @message.quit
+        @message.quit
         break
       end
       edge_case_for_loops
@@ -29,14 +29,15 @@ class Game
       if all_systems_go?
         reset_turn_score
         @turn.index_checker
-        p feedback_message
+        feedback_message
           if @turn.has_won?
-            p @message.end_game
+            @time_end = Time.now
+            end_game
             @user_input = gets.chomp
             if @user_input == "p"
               flow
             elsif @user_input == "q"
-              p @message.quit
+              @message.quit
               break
             end
           end
@@ -45,9 +46,16 @@ class Game
     end
 
     def edge_case_for_loops
-      p @message.short_guess if @turn.correct_length? == -1
-      p @message.long_guess if @turn.correct_length? == 1
-      p @message.abracadabra if @turn.correct_characters? == false
+      if @turn.guess == "c" || @turn.guess == "cheat"
+        "*~*~*~*~* Cheater Cheater Pumpkin Eater *~*~*~*~*\n".each_char {|c| putc c ; sleep 0.1; $stdout.flush}
+        puts "The computer's code is: #{@turn.access_code}"
+      elsif @turn.correct_length? == -1
+        @message.short_guess
+      elsif @turn.correct_length? == 1
+        @message.long_guess
+      elsif @turn.correct_characters? == false
+        @message.right_letters
+      end
     end
 
   def all_systems_go?
@@ -69,10 +77,10 @@ class Game
           if @user_input == "p"
             flow
           elsif @user_input == "q"
-            puts @message.quit
+            @message.quit
             break
           else
-            puts @message.abracadabra
+            @message.choose_play_or_quit
           end
         end
       end
@@ -84,14 +92,18 @@ class Game
     elsif @user_input == "i"
       puts @message.instructions
     elsif @user_input == "q"
-      puts @message.quit
+      @message.quit
     else
-      puts @message.abracadabra
+      @message.choose_play_or_quit
     end
   end
 
   def feedback_message
-    "#{@turn.guess.to_s.upcase} has 4 correct colors in #{@turn.number_correct} of the correct positions. The number of guesses you've taken is #{@turn_number}."
+    "#{@turn.guess.to_s.upcase} has 4 correct colors in #{@turn.number_correct} of the correct positions. The number of guesses you've taken is #{@turn_number}.\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
+  end
+
+  def end_game
+    "Wonderful job! You guessed the sequence #{@turn.guess.upcase} in #{@turn_number} guesses over #{interpolated_time}. Come again! In fact, would you like to (p)lay again? Or (q)uit\n".each_char {|c| putc c ; sleep 0.015; $stdout.flush}
   end
 
   def end_conditions_are_met
@@ -102,9 +114,22 @@ class Game
     @turn.number_correct = 0
   end
 
+  def time_elapsed
+    time = @time_end - @time_start
+  end
+
+  def interpolated_time
+    seconds = time_elapsed % 60
+    minutes = (time_elapsed - seconds) / 60
+    interpolated = "#{minutes.to_i} minutes and #{seconds.to_i} seconds"
+  end
+
+
   def reset_game_scores
+    @time_start = Time.now
     @turn.won = false
     @turn_number = 0
     @turn.number_correct = 0
+    @turn = Turn.new
   end
 end
