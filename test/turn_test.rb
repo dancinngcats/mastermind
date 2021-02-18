@@ -63,16 +63,12 @@ class TurnTest < Minitest::Test
     assert_equal true, @turn.correct_length?
   end
 
-  def test_access_code_method
-    assert_instance_of Array, @turn.access_code
-  end
-
   def test_has_won?
     assert_equal false, @turn.won
 
     @turn.number_correct = 4
     @turn.has_won?
-    
+
     assert_equal true, @turn.won
   end
 end
