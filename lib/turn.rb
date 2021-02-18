@@ -16,16 +16,12 @@ class Turn
   end
 
   def correct_characters?
-    if @guess.match?(/[^"r", "g", "b", "y"]/)
-      false
-    else
-      true
-    end
+    !@guess.match?(/[^"r", "g", "b", "y"]/)
   end
 
   def index_checker
     4.times do |index|
-      @number_correct += 1 if access_code[index] == @guess[index]
+      @number_correct += 1 if @codemaker.code == @guess[index]
     end
   end
 
@@ -37,10 +33,6 @@ class Turn
     else
       true
     end
-  end
-
-  def access_code
-    @codemaker.code
   end
 
   def has_won?

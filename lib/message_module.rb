@@ -53,7 +53,7 @@ module MessageModule
   end
 
   def cheater_2
-    slow_it_down("The computer's code is: #{@turn.access_code}\n", 0.0)
+    slow_it_down("The computer's code is: #{@turn.codemaker.code.join.upcase}\n", 0.0)
     break_it_up
   end
 
