@@ -17,17 +17,28 @@ class Game
   def start_loop
     @user_input = gets.chomp.downcase
     start_menu_select
-    if @user_input == "i"
-      until @user_input == "p" || @user_input == "q"
+    if @user_input == "i" || @user_input == "instructions"
+      until user_input_play || user_input_quit
         @user_input = gets.chomp
-        if @user_input == "p"
+        if user_input_play
           flow
-        elsif @user_input == "q"
+        elsif user_input_quit
           quit
           break
         else
           choose_play_or_quit
-        end end end end
+        end
+      end
+    end
+  end
+
+  def user_input_play
+    @user_input.downcase == "p" || @user_input.downcase == "play"
+  end
+
+  def user_input_quit
+    @user_input == "q" || @user_input == "quit"
+  end
 
   def flow
     reset_game
@@ -43,9 +54,9 @@ class Game
         all_systems_go
       if @turn.has_won?
         turn_has_won
-      if @user_input == "p"
+      if user_input_play
         flow
-      elsif @user_input == "q"
+      elsif user_input_quit
         quit
         break
       end end end end end
@@ -61,12 +72,12 @@ class Game
   end
 
   def start_menu_select
-    if @user_input == "p"
+    if user_input_play
       flow
-    elsif @user_input == "i"
+    elsif @user_input == "i" || @user_input == "instructions"
       puts instructions
       break_it_up
-    elsif @user_input == "q"
+    elsif user_input_quit
       quit
     else
       choose_play_or_quit
