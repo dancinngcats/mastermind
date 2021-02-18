@@ -52,14 +52,18 @@ class Game
       edge_case_for_loops
       if all_systems_go?
         all_systems_go
-      if @turn.has_won?
-        turn_has_won
-      if user_input_play
-        flow
-      elsif user_input_quit
-        quit
-        break
-      end end end end end
+        if @turn.has_won?
+          turn_has_won
+          if user_input_play
+            flow
+          elsif user_input_quit
+            quit
+            break
+          end
+        end
+      end
+    end
+  end
 
   def time_elapsed
     @time_end - @time_start
